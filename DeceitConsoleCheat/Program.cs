@@ -28,15 +28,7 @@ namespace DeceitConsoleCheat
 
         }
 
-        public class User1
-        {
 
-            internal static int PlayerID;
-            internal static string Name;
-            internal static int Blood;
-            internal static int newBlood;
-
-        }
        
         public System.Diagnostics.ProcessModuleCollection Modules { get; }
         public static async Task Main(string[] args)
@@ -47,19 +39,26 @@ namespace DeceitConsoleCheat
        //     Console.WriteLine("Write id");
    //        User1.PlayerID = Convert.ToInt32(Console.ReadLine());
             await PIayerDB.Gethiscores(client, "elo");
-            Player temper = PIayerDB.TryGetPlayerByName("morgenshtern");
-            await PIayerDB.GetPlayerStat(client, temper);
 
-            User1.Blood = temper.Blood;
+            Player temper = PIayerDB.TryGetPlayerByName(Console.ReadLine());
+            await PIayerDB.UpdatePlayerStat(client, temper);
+            temper.oldgames = temper.games;
+            temper.oldBlood = temper.Blood;
             while (true)
             {
-                Thread.Sleep(5000);
-               // await PIayerDB.GetPlayerStatByID(client, User1.PlayerID.ToString());
-                        User1.newBlood = TempUser.Blood;
-                if (User1.newBlood != User1.Blood) { 
-                        Console.WriteLine(User1.Name + "\n   Current_blood: " + User1.newBlood + "\n   old_Blood: " + User1.Blood);
+                await PIayerDB.UpdatePlayerStat(client, temper); // UPDATE 
+                Thread.Sleep(10000);
+                // await PIayerDB.GetPlayerStatByID(client, User1.PlayerID.ToString());
+                if (temper.oldBlood != temper.Blood) { 
+                        Console.WriteLine(temper.Name + " Infected! ");
+                    temper.oldBlood = temper.Blood;
                     }
-               
+                if (temper.games != temper.oldgames)
+                {
+                    Console.WriteLine(temper.Name + " - Game Ends \n -------------------------------  ");
+                    temper.oldgames = temper.games;
+                }
+
 
             }
         }

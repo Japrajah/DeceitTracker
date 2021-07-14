@@ -26,7 +26,32 @@ namespace DeceitConsoleCheat
         private string _Name;
         private string _id;
         private int _Blood;
+        private int _oldBlood;
         private string _pRank;
+        private int _games;
+        private int _oldgames;
+        new public int games
+        {
+            get
+            {
+                return _games;
+            }
+            set
+            {
+                _games = value;
+            }
+        }
+        new public int oldgames
+        {
+            get
+            {
+                return _oldgames;
+            }
+            set
+            {
+                _oldgames = value;
+            }
+        }
         new public string Id
         {
             get
@@ -38,7 +63,17 @@ namespace DeceitConsoleCheat
                 _id = value;
             }
         }
-
+        new public int oldBlood
+        {
+            get
+            {
+                return _oldBlood;
+            }
+            set
+            {
+                _oldBlood = value;
+            }
+        }
         new public string pRank
         {
             get
@@ -117,14 +152,14 @@ namespace DeceitConsoleCheat
 
 
 
-            public static async Task GetPlayerStat(HttpClient client, Player lplayer)
+            public static async Task UpdatePlayerStat(HttpClient client, Player lplayer)
         {
 
             try
             {
             
                string id = lplayer.Id;
-                HttpResponseMessage response = await client.GetAsync("https://deceit-live.baseline.gg/stats?userId=" + id);
+                HttpResponseMessage response = await client.GetAsync("https://live.deceit.gg/stats?userId=" + id);// https://live.deceit.gg/
                 response.EnsureSuccessStatusCode();
                 string responseBody = await response.Content.ReadAsStringAsync();
                 //   File.Create(id+".json").Close();
@@ -146,9 +181,23 @@ namespace DeceitConsoleCheat
                     Console.WriteLine(lplayer.Name +"- NDB!");
                      lplayer.Blood = -1;
                 }
-           //     lplayer = Players.list.ElementAt(Players.indx);
-            //    Players.list.ElementAt(Players.indx);
-           //     if (Players.indx != Players.list.Count - 1) { Players.indx++; }
+                var matchesa = Regex.Matches(responseBody, @"\""games_played\"":\d+"); //getGameCount
+                var gamesval = matchesa.Cast<Match>()
+                .Where((e) => e.Value.Split(':').Length == 2)
+                .Select((e) => e.Value.Split(':')[1].Trim('\"'));
+                string games = string.Join("\r\n", gamesval);
+                if (games != "")
+                {
+                    lplayer.games = Convert.ToInt32(games);
+                }
+                else
+                {
+                    Console.WriteLine(lplayer.Name + "NFG");
+                    lplayer.games = -1;
+                }
+                //     lplayer = Players.list.ElementAt(Players.indx);
+                //    Players.list.ElementAt(Players.indx);
+                //     if (Players.indx != Players.list.Count - 1) { Players.indx++; }
             }
             catch
             {
