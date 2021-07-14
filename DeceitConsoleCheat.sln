@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeceitConsoleCheat", "DeceitConsoleCheat\DeceitConsoleCheat.csproj", "{5B1EEC39-3C19-414D-A42A-9790BF50BC89}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5B1EEC39-3C19-414D-A42A-9790BF50BC89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B1EEC39-3C19-414D-A42A-9790BF50BC89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B1EEC39-3C19-414D-A42A-9790BF50BC89}.Debug|x64.ActiveCfg = Debug|x64
+		{5B1EEC39-3C19-414D-A42A-9790BF50BC89}.Debug|x64.Build.0 = Debug|x64
+		{5B1EEC39-3C19-414D-A42A-9790BF50BC89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B1EEC39-3C19-414D-A42A-9790BF50BC89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B1EEC39-3C19-414D-A42A-9790BF50BC89}.Release|x64.ActiveCfg = Release|x64
+		{5B1EEC39-3C19-414D-A42A-9790BF50BC89}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7AC96175-A57C-4E02-987D-8CCF5A9B88CF}
+	EndGlobalSection
+EndGlobal
