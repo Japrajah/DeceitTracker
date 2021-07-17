@@ -20,14 +20,12 @@ namespace DeceitConsoleCheat
     {
 
 
-        public System.Diagnostics.ProcessModuleCollection Modules { get; }
         public static async Task Main(string[] args)
         {
             
 
             using var client = new HttpClient();
-       //     Console.WriteLine("Write id");
-   //        User1.PlayerID = Convert.ToInt32(Console.ReadLine());
+
             await PIayerDB.Gethiscores(client, "elo");
 
             for (int elment = 1; elment < Players.list.Count; elment++)
@@ -35,7 +33,7 @@ namespace DeceitConsoleCheat
                 Player plr = Players.list.ElementAt(elment);
                 Console.WriteLine(plr.playerindex + " " + plr.Name);
             }
-            // Player temper = PIayerDB.TryGetPlayerByName(Console.ReadLine());
+
 
    
            string Inpt = Console.ReadLine();
@@ -43,23 +41,16 @@ namespace DeceitConsoleCheat
             string[] InptAr = Inpt.Split(separators, StringSplitOptions.RemoveEmptyEntries);
             for (int elment = 0; elment < InptAr.Length; elment++)
             {
-                sdr(client,InptAr[elment]);
+                StartTrack(client,InptAr[elment]);
                 Thread.Sleep(1500);
             }
 
-
-            //for (int elment = 0; elment < Players.list.Count -1; elment++)
-            //{
-            //    Thread.Sleep(1000);
-            //     sdr(client, elment);
-
-            //}
             Thread.Sleep(10000000);
             Console.ReadLine();
 
 
     }
-        public static async Task sdr (HttpClient client, string place)
+        public static async Task StartTrack (HttpClient client, string place)
         {
             Player temper = Players.list.ElementAt(Convert.ToInt32(place));
             await PIayerDB.UpdatePlayerStat(client, temper);
@@ -71,8 +62,6 @@ namespace DeceitConsoleCheat
                 Thread.Sleep(10000);
                 await PIayerDB.UpdatePlayerStat(client, temper); // UPDATE 
              
-
-                // await PIayerDB.GetPlayerStatByID(client, User1.PlayerID.ToString());
                 if (temper.oldBlood != temper.Blood)
                 {
                     Console.WriteLine(temper.Name + " Infected! ");

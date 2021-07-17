@@ -20,110 +20,6 @@ namespace DeceitConsoleCheat
     }
 
 
-
-        public class Player
-    {
-        internal static int subIndex = 0;
-        private string _Name;
-        private string _id;
-        private int _Blood;
-        private int _oldBlood;
-        private string _pRank;
-        private int _games;
-        private int _oldgames;
-        private int _playerindex;
-        new public int games
-        {
-            get
-            {
-                return _games;
-            }
-            set
-            {
-                _games = value;
-            }
-        }
-
-        new public int playerindex
-        {
-            get
-            {
-                return _playerindex;
-            }
-            set
-            {
-                _playerindex = value;
-            }
-        }
-        new public int oldgames
-        {
-            get
-            {
-                return _oldgames;
-            }
-            set
-            {
-                _oldgames = value;
-            }
-        }
-        new public string Id
-        {
-            get
-            {
-                return _id;
-            }
-            set
-            {
-                _id = value;
-            }
-        }
-        new public int oldBlood
-        {
-            get
-            {
-                return _oldBlood;
-            }
-            set
-            {
-                _oldBlood = value;
-            }
-        }
-        new public string pRank
-        {
-            get
-            {
-                return _pRank;
-            }
-            set
-            {
-                _pRank = value;
-            }
-        }
-        new public string Name
-        {
-            get
-            {
-                return _Name;
-            }
-            set
-            {
-                _Name = value;
-            }
-        }
-        new public int Blood
-        {
-            get
-            {
-                return _Blood;
-            }
-            set
-            {
-                _Blood = value;
-            }
-        }
-      
-    }
-
     class PIayerDB
     {
         private static Player lplayer;
@@ -182,8 +78,7 @@ namespace DeceitConsoleCheat
                     Console.WriteLine("limit exceeded");
 
                 }
-                //   File.Create(id+".json").Close();
-                //    File.AppendAllText(id+"User.json", responseBody + Environment.NewLine);   
+
 
                     ////////////////////////////////////////////////////////////////
                     responseBody = await response.Content.ReadAsStringAsync();
@@ -216,9 +111,6 @@ namespace DeceitConsoleCheat
                     Console.WriteLine(lplayer.Name + "NFG");
                     lplayer.games = -1;
                 }
-                //     lplayer = Players.list.ElementAt(Players.indx);
-                //    Players.list.ElementAt(Players.indx);
-                //     if (Players.indx != Players.list.Count - 1) { Players.indx++; }
             }
             catch
             {
@@ -260,12 +152,6 @@ namespace DeceitConsoleCheat
                      Pl.Id = PlId;
                     Pl.playerindex = Players.indx;
                     //////////////////////////////////////////////////////////////// 
-                    //        var matches1 = Regex.Matches(localBody, @"\""rank\"":\d+"); //getRank TEMP IN FUTURE changed to get LEVEL BY ID
-                    //        var Rank = matches1.Cast<Match>()
-                    //        .Where((e) => e.Value.Split(':').Length == 2)
-                    //        .Select((e) => e.Value.Split(':')[1].Trim('\"'));
-                    //        string pRank = string.Join("\r\n", Rank);
-                    //Pl.pRank = pRank;
 
                     Players.list.Add(Pl);
                     Players.indx++;
@@ -276,21 +162,7 @@ namespace DeceitConsoleCheat
                     if (Player.subIndex == -1) {break;}
                     responseBody = responseBody.Substring(0, Player.subIndex); 
                 }
-
-
-
-
-                //if (PlId != "")
-                //{
-                //    Pl.Blood = Convert.ToInt32(PlId);
-
-
-                //}
-                //else
-                //{
-                //    Pl.Blood = -1;
-                //}
-                //Players.list.Add(Pl);
+;
 
             }
             catch
