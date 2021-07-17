@@ -23,6 +23,7 @@ namespace DeceitConsoleCheat
 
         public class Player
     {
+        internal static int subIndex = 0;
         private string _Name;
         private string _id;
         private int _Blood;
@@ -30,6 +31,7 @@ namespace DeceitConsoleCheat
         private string _pRank;
         private int _games;
         private int _oldgames;
+        private int _playerindex;
         new public int games
         {
             get
@@ -39,6 +41,18 @@ namespace DeceitConsoleCheat
             set
             {
                 _games = value;
+            }
+        }
+
+        new public int playerindex
+        {
+            get
+            {
+                return _playerindex;
+            }
+            set
+            {
+                _playerindex = value;
             }
         }
         new public int oldgames
@@ -159,14 +173,20 @@ namespace DeceitConsoleCheat
             {
             
                string id = lplayer.Id;
-                HttpResponseMessage response = await client.GetAsync("https://live.deceit.gg/stats?userId=" + id);// https://live.deceit.gg/
+                HttpResponseMessage response = await client.GetAsync("https://deceit-live.baseline.gg/stats?userId=" + id);// https://live.deceit.gg/
                 response.EnsureSuccessStatusCode();
                 string responseBody = await response.Content.ReadAsStringAsync();
+                if (responseBody.Length < 40)
+                {
+
+                    Console.WriteLine("limit exceeded");
+
+                }
                 //   File.Create(id+".json").Close();
                 //    File.AppendAllText(id+"User.json", responseBody + Environment.NewLine);   
-              
-                ////////////////////////////////////////////////////////////////
-                responseBody = await response.Content.ReadAsStringAsync();
+
+                    ////////////////////////////////////////////////////////////////
+                    responseBody = await response.Content.ReadAsStringAsync();
                 var matchesB = Regex.Matches(responseBody, @"\""s_blood_drank\"":\d+"); //getBlood
                 var Bloodval = matchesB.Cast<Match>()
                 .Where((e) => e.Value.Split(':').Length == 2)
@@ -181,6 +201,7 @@ namespace DeceitConsoleCheat
                     Console.WriteLine(lplayer.Name +"- NDB!");
                      lplayer.Blood = -1;
                 }
+                
                 var matchesa = Regex.Matches(responseBody, @"\""games_played\"":\d+"); //getGameCount
                 var gamesval = matchesa.Cast<Match>()
                 .Where((e) => e.Value.Split(':').Length == 2)
@@ -236,19 +257,24 @@ namespace DeceitConsoleCheat
                     .Where((e) => e.Value.Split(':').Length == 2)
                     .Select((e) => e.Value.Split(':')[1].Trim('\"'));
                     string PlId = string.Join("\r\n", Pid);
-             Pl.Id = PlId;
+                     Pl.Id = PlId;
+                    Pl.playerindex = Players.indx;
                     //////////////////////////////////////////////////////////////// 
-            //        var matches1 = Regex.Matches(localBody, @"\""rank\"":\d+"); //getRank TEMP IN FUTURE changed to get LEVEL BY ID
-            //        var Rank = matches1.Cast<Match>()
-            //        .Where((e) => e.Value.Split(':').Length == 2)
-            //        .Select((e) => e.Value.Split(':')[1].Trim('\"'));
-            //        string pRank = string.Join("\r\n", Rank);
-            //Pl.pRank = pRank;
-                    Players.list.Add(Pl);
+                    //        var matches1 = Regex.Matches(localBody, @"\""rank\"":\d+"); //getRank TEMP IN FUTURE changed to get LEVEL BY ID
+                    //        var Rank = matches1.Cast<Match>()
+                    //        .Where((e) => e.Value.Split(':').Length == 2)
+                    //        .Select((e) => e.Value.Split(':')[1].Trim('\"'));
+                    //        string pRank = string.Join("\r\n", Rank);
+                    //Pl.pRank = pRank;
 
-                    int subIndex = responseBody.LastIndexOf("},");
-                    if (subIndex == -1) {break;}
-                    responseBody = responseBody.Substring(0, subIndex); 
+                    Players.list.Add(Pl);
+                    Players.indx++;
+                    Player.subIndex = responseBody.LastIndexOf("}]");
+                    if (Player.subIndex == -1) {
+                        Player.subIndex = responseBody.LastIndexOf("},");
+                    }
+                    if (Player.subIndex == -1) {break;}
+                    responseBody = responseBody.Substring(0, Player.subIndex); 
                 }
 
 

@@ -18,18 +18,8 @@ namespace DeceitConsoleCheat
 
     class Program
     {
-        public class TempUser
-        {
-
-            internal static int PlayerID;
-            internal static string Name;
-            internal static int Blood;
-            internal static int newBlood;
-
-        }
 
 
-       
         public System.Diagnostics.ProcessModuleCollection Modules { get; }
         public static async Task Main(string[] args)
         {
@@ -40,19 +30,54 @@ namespace DeceitConsoleCheat
    //        User1.PlayerID = Convert.ToInt32(Console.ReadLine());
             await PIayerDB.Gethiscores(client, "elo");
 
-            Player temper = PIayerDB.TryGetPlayerByName(Console.ReadLine());
+            for (int elment = 1; elment < Players.list.Count; elment++)
+            {
+                Player plr = Players.list.ElementAt(elment);
+                Console.WriteLine(plr.playerindex + " " + plr.Name);
+            }
+            // Player temper = PIayerDB.TryGetPlayerByName(Console.ReadLine());
+
+   
+           string Inpt = Console.ReadLine();
+            char[] separators = new char[] { ',' };
+            string[] InptAr = Inpt.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+            for (int elment = 0; elment < InptAr.Length; elment++)
+            {
+                sdr(client,InptAr[elment]);
+                Thread.Sleep(1500);
+            }
+
+
+            //for (int elment = 0; elment < Players.list.Count -1; elment++)
+            //{
+            //    Thread.Sleep(1000);
+            //     sdr(client, elment);
+
+            //}
+            Thread.Sleep(10000000);
+            Console.ReadLine();
+
+
+    }
+        public static async Task sdr (HttpClient client, string place)
+        {
+            Player temper = Players.list.ElementAt(Convert.ToInt32(place));
             await PIayerDB.UpdatePlayerStat(client, temper);
             temper.oldgames = temper.games;
             temper.oldBlood = temper.Blood;
+            Console.WriteLine(temper.Name + " Traked! ");
             while (true)
             {
-                await PIayerDB.UpdatePlayerStat(client, temper); // UPDATE 
                 Thread.Sleep(10000);
+                await PIayerDB.UpdatePlayerStat(client, temper); // UPDATE 
+             
+
                 // await PIayerDB.GetPlayerStatByID(client, User1.PlayerID.ToString());
-                if (temper.oldBlood != temper.Blood) { 
-                        Console.WriteLine(temper.Name + " Infected! ");
+                if (temper.oldBlood != temper.Blood)
+                {
+                    Console.WriteLine(temper.Name + " Infected! ");
                     temper.oldBlood = temper.Blood;
-                    }
+                }
                 if (temper.games != temper.oldgames)
                 {
                     Console.WriteLine(temper.Name + " - Game Ends \n -------------------------------  ");
@@ -61,62 +86,13 @@ namespace DeceitConsoleCheat
 
 
             }
+
+
+
         }
 
 
-
-
-
-
-        public static async Task GetPlayerStatByID(HttpClient client, string id)
-        {
-
-            try
-            {  
-                HttpResponseMessage response = await client.GetAsync("https://deceit-live.baseline.gg/stats?userId=" + id);
-                response.EnsureSuccessStatusCode();
-                string responseBody = await response.Content.ReadAsStringAsync();
-                //   File.Create(id+".json").Close();
-                //    File.AppendAllText(id+"User.json", responseBody + Environment.NewLine);   
-                        TempUser.PlayerID = Convert.ToInt32(id);
-                ///////////////////////////////////////////////////////////////
-                responseBody = await response.Content.ReadAsStringAsync();  
-                responseBody = responseBody.Split("\"name\":\"").Last(); //getName
-                int name = responseBody.LastIndexOf("\",\"elo\":");
-                        string playername;
-                        playername = responseBody.Substring(0, name);
-                        //  Console.WriteLine("Nickname - " + playername);
-                        TempUser.Name = playername;
-                ////////////////////////////////////////////////////////////////
-                responseBody = await response.Content.ReadAsStringAsync();
-                var matchesB = Regex.Matches(responseBody, @"\""s_blood_drank\"":\d+"); //getBlood
-                        var steamidsB = matchesB.Cast<Match>()
-                        .Where((e) => e.Value.Split(':').Length == 2)
-                        .Select((e) => e.Value.Split(':')[1].Trim('\"'));
-                        string blood = string.Join("\r\n", steamidsB);
-                if (blood != "")
-                {
-                    TempUser.Blood = Convert.ToInt32(blood);
-
-
-                }
-                else
-                {
-                    TempUser.Blood = -1;
-                }
-
-
-            }
-            catch
-            {
-
-            }
-
-        }
-       
-       
-     
-
-        
     }
+
+
 }
