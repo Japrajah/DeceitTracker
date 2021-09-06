@@ -82,7 +82,6 @@ namespace DeceitConsoleCheat
                 }
                 if (temper.games != temper.oldgames)
                 {
-                    Console.WriteLine(temper.Name + " - Game Ends \n -------------------------------  ");
                     temper.oldgames = temper.games;
                     if (temper.gamesasinfold != temper.gamesasinf)
                     {
