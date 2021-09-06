@@ -84,19 +84,14 @@ namespace DeceitConsoleCheat
                 {
                     Console.WriteLine(temper.Name + " - Game Ends \n -------------------------------  ");
                     temper.oldgames = temper.games;
-                    if (temper.games != temper.oldgames)
+                    if (temper.gamesasinfold != temper.gamesasinf)
                     {
-                   
-                        temper.oldgames = temper.games;
-                        if (temper.gamesasinfold != temper.gamesasinf)
-                        {
-                            Console.WriteLine(temper.Name + " - Game Ends As Infected! \n ------------------------------- ");
-                            temper.gamesasinfold = temper.gamesasinf;
-                        }
-                        else
-                        {
-                            Console.WriteLine(temper.Name + " - Game Ends \n -------------------------------  ");
-                        }
+                        Console.WriteLine(temper.Name + " - Game Ends As Infected! \n ------------------------------- ");
+                        temper.gamesasinfold = temper.gamesasinf;
+                    }
+                    else
+                    {
+                        Console.WriteLine(temper.Name + " - Game Ends \n -------------------------------  ");
                     }
                 }
 
