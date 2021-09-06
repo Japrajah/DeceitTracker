@@ -25,8 +25,21 @@ namespace DeceitConsoleCheat
             
 
             using var client = new HttpClient();
+            Console.WriteLine("Awalable: \nelo\nxp\nrep");
+            string type;
+            while (true)
+            {
 
-            await PIayerDB.Gethiscores(client, "elo");
+                type = Console.ReadLine();
+                if (type == "elo" || type == "xp" || type == "rep")
+                {
+                    break;
+                }
+
+
+            }
+            await PIayerDB.Gethiscores(client, type);
+   
 
             for (int elment = 1; elment < Players.list.Count; elment++)
             {
@@ -34,8 +47,6 @@ namespace DeceitConsoleCheat
                 Console.WriteLine(plr.playerindex + " " + plr.Name);
             }
 
-
-   
            string Inpt = Console.ReadLine();
             char[] separators = new char[] { ',' };
             string[] InptAr = Inpt.Split(separators, StringSplitOptions.RemoveEmptyEntries);
@@ -45,16 +56,18 @@ namespace DeceitConsoleCheat
                 Thread.Sleep(1500);
             }
 
-            Thread.Sleep(10000000);
+            Thread.Sleep(999999999);
             Console.ReadLine();
+            Console.ReadLine();
+          
 
-
-    }
+        }
         public static async Task StartTrack (HttpClient client, string place)
         {
             Player temper = Players.list.ElementAt(Convert.ToInt32(place));
             await PIayerDB.UpdatePlayerStat(client, temper);
             temper.oldgames = temper.games;
+            temper.gamesasinfold = temper.gamesasinf;
             temper.oldBlood = temper.Blood;
             Console.WriteLine(temper.Name + " Traked! ");
             while (true)
@@ -71,6 +84,20 @@ namespace DeceitConsoleCheat
                 {
                     Console.WriteLine(temper.Name + " - Game Ends \n -------------------------------  ");
                     temper.oldgames = temper.games;
+                    if (temper.games != temper.oldgames)
+                    {
+                   
+                        temper.oldgames = temper.games;
+                        if (temper.gamesasinfold != temper.gamesasinf)
+                        {
+                            Console.WriteLine(temper.Name + " - Game Ends As Infected! \n ------------------------------- ");
+                            temper.gamesasinfold = temper.gamesasinf;
+                        }
+                        else
+                        {
+                            Console.WriteLine(temper.Name + " - Game Ends \n -------------------------------  ");
+                        }
+                    }
                 }
 
 

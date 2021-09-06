@@ -15,6 +15,8 @@ namespace DeceitConsoleCheat
         private int _games;
         private int _oldgames;
         private int _playerindex;
+        private int _gamesasinf;
+        private int _gamesasinfold;
         new public int games
         {
             get
@@ -26,7 +28,28 @@ namespace DeceitConsoleCheat
                 _games = value;
             }
         }
-
+        new public int gamesasinf
+        {
+            get
+            {
+                return _gamesasinf;
+            }
+            set
+            {
+                _gamesasinf = value;
+            }
+        }
+        new public int gamesasinfold
+        {
+            get
+            {
+                return _gamesasinfold;
+            }
+            set
+            {
+                _gamesasinfold = value;
+            }
+        }
         new public int playerindex
         {
             get

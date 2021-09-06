@@ -111,6 +111,20 @@ namespace DeceitConsoleCheat
                     Console.WriteLine(lplayer.Name + "NFG");
                     lplayer.games = -1;
                 }
+                var matchesas = Regex.Matches(responseBody, @"\""games_as_infected\"":\d+"); //getGameCount,"games_as_infected":
+                var gamesvals = matchesas.Cast<Match>()
+                .Where((e) => e.Value.Split(':').Length == 2)
+                .Select((e) => e.Value.Split(':')[1].Trim('\"'));
+                string gamess = string.Join("\r\n", gamesvals);
+                if (gamess != "")
+                {
+                    lplayer.gamesasinf = Convert.ToInt32(gamess);
+                }
+                else
+                {
+                    Console.WriteLine(lplayer.Name + "NFG");
+                    lplayer.gamesasinf = -1;
+                }
             }
             catch
             {
@@ -152,6 +166,11 @@ namespace DeceitConsoleCheat
                      Pl.Id = PlId;
                     Pl.playerindex = Players.indx;
                     //////////////////////////////////////////////////////////////// 
+                    ///
+
+
+
+                    //////
 
                     Players.list.Add(Pl);
                     Players.indx++;

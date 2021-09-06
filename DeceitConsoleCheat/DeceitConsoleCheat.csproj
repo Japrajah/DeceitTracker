@@ -4,8 +4,9 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <Platforms>AnyCPU;x64</Platforms>
-    <AssemblyName>DeceitConsoleCheat</AssemblyName>
+    <AssemblyName>RankedTracker</AssemblyName>
     <RootNamespace>DeceitConsoleCheat</RootNamespace>
+    <ApplicationIcon>15.ico</ApplicationIcon>
   </PropertyGroup>
 
 </Project>
